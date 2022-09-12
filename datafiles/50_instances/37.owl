@@ -1,0 +1,1170 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://www.semanticweb.org/rach3/ontologies/2022/5/smoke-detection"
+         xmlns="http://www.semanticweb.org/rach3/ontologies/2022/5/smoke-detection#">
+
+<owl:Ontology rdf:about="http://www.semanticweb.org/rach3/ontologies/2022/5/smoke-detection"/>
+
+<owl:ObjectProperty rdf:about="#hasContext"/>
+
+<owl:ObjectProperty rdf:about="#hasLocation">
+  <rdfs:domain rdf:resource="#Observation"/>
+  <rdfs:range rdf:resource="#Location"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#observationResult">
+  <rdfs:domain rdf:resource="#Observation"/>
+  <rdfs:range rdf:resource="#Result"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#observedProperty">
+  <rdfs:domain rdf:resource="#Observation"/>
+  <rdfs:range rdf:resource="#Property"/>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="#hasValue">
+  <rdfs:domain rdf:resource="#Result"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="#Observation"/>
+
+<owl:Class rdf:about="#Location"/>
+
+<owl:Class rdf:about="#Result"/>
+
+<owl:Class rdf:about="#Property"/>
+
+<owl:Class rdf:about="#AbnormalTemperatureEvent">
+  <rdfs:subClassOf rdf:resource="#TemperatureEvent"/>
+</owl:Class>
+
+<owl:Class rdf:about="#TemperatureEvent">
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#observedProperty"/>
+      <owl:someValuesFrom rdf:resource="#Temperature"/>
+    </owl:Restriction>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="#Event"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Elevator">
+  <rdfs:subClassOf rdf:resource="#Location"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ElevatorAbnormalTemperatureEvent">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#hasLocation"/>
+          <owl:someValuesFrom rdf:resource="#Elevator"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#observationResult"/>
+          <owl:someValuesFrom rdf:resource="#Result40"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="#AbnormalTemperatureEvent"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Result40">
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasValue"/>
+      <owl:someValuesFrom>
+        <rdfs:Datatype>
+          <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+          <owl:withRestrictions>
+            <rdf:Description>
+              <rdf:first>
+                <rdf:Description>
+                  <xsd:minExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40.0</xsd:minExclusive>
+                </rdf:Description>
+              </rdf:first>
+              <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+          </owl:withRestrictions>
+        </rdfs:Datatype>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="#Result"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Event">
+  <owl:equivalentClass rdf:resource="#Observation"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Result20">
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasValue"/>
+      <owl:someValuesFrom>
+        <rdfs:Datatype>
+          <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+          <owl:withRestrictions>
+            <rdf:Description>
+              <rdf:first>
+                <rdf:Description>
+                  <xsd:minExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.0</xsd:minExclusive>
+                </rdf:Description>
+              </rdf:first>
+              <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+          </owl:withRestrictions>
+        </rdfs:Datatype>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="#Result"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ServerRoom">
+  <rdfs:subClassOf rdf:resource="#Location"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ServerRoomTemperatureEvent">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#hasLocation"/>
+          <owl:someValuesFrom rdf:resource="#ServerRoom"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#observationResult"/>
+          <owl:someValuesFrom rdf:resource="#Result20"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="#AbnormalTemperatureEvent"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Smoke">
+  <rdfs:subClassOf rdf:resource="#Property"/>
+</owl:Class>
+
+<owl:Class rdf:about="#SmokeDetectionEvent">
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#observedProperty"/>
+      <owl:someValuesFrom rdf:resource="#Smoke"/>
+    </owl:Restriction>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="#Event"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Temperature">
+  <rdfs:subClassOf rdf:resource="#Property"/>
+</owl:Class>
+
+<Temperature rdf:about="#temperature_37_1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">105.41755926108345</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_1"/>
+  <observationResult rdf:resource="#result_37_1"/>
+  <hasLocation rdf:resource="#server_room_37_1"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50.92210039610479</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_2"/>
+  <observationResult rdf:resource="#result_37_2"/>
+  <hasLocation rdf:resource="#elevator_37_2"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">107.81051626687037</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_3"/>
+  <observationResult rdf:resource="#result_37_3"/>
+  <hasLocation rdf:resource="#elevator_37_3"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">109.1208941701747</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_4"/>
+  <observationResult rdf:resource="#result_37_4"/>
+  <hasLocation rdf:resource="#server_room_37_4"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">25.206539290952485</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_5"/>
+  <observationResult rdf:resource="#result_37_5"/>
+  <hasLocation rdf:resource="#server_room_37_5"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">107.26616530324924</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_6"/>
+  <observationResult rdf:resource="#result_37_6"/>
+  <hasLocation rdf:resource="#elevator_37_6"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">37.64890952808028</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_7"/>
+  <observationResult rdf:resource="#result_37_7"/>
+  <hasLocation rdf:resource="#elevator_37_7"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">103.97380290603692</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_8"/>
+  <observationResult rdf:resource="#result_37_8"/>
+  <hasLocation rdf:resource="#server_room_37_8"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">57.537405682472446</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_9"/>
+  <observationResult rdf:resource="#result_37_9"/>
+  <hasLocation rdf:resource="#server_room_37_9"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">85.10228655594484</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_10"/>
+  <observationResult rdf:resource="#result_37_10"/>
+  <hasLocation rdf:resource="#server_room_37_10"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.583038245837315</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_11"/>
+  <observationResult rdf:resource="#result_37_11"/>
+  <hasLocation rdf:resource="#server_room_37_11"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">119.65612555935823</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_12"/>
+  <observationResult rdf:resource="#result_37_12"/>
+  <hasLocation rdf:resource="#elevator_37_12"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">73.32841224209045</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_13"/>
+  <observationResult rdf:resource="#result_37_13"/>
+  <hasLocation rdf:resource="#elevator_37_13"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22.193617434995275</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_14"/>
+  <observationResult rdf:resource="#result_37_14"/>
+  <hasLocation rdf:resource="#server_room_37_14"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_15">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_15">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_15">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">32.89098431951995</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_15">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_15"/>
+  <observationResult rdf:resource="#result_37_15"/>
+  <hasLocation rdf:resource="#elevator_37_15"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_16">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_16">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_16">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.27070323060282</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_16">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_16"/>
+  <observationResult rdf:resource="#result_37_16"/>
+  <hasLocation rdf:resource="#elevator_37_16"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_17">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_17">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_17">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">83.92584189476383</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_17">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_17"/>
+  <observationResult rdf:resource="#result_37_17"/>
+  <hasLocation rdf:resource="#elevator_37_17"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">61.96577157931311</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_18"/>
+  <observationResult rdf:resource="#result_37_18"/>
+  <hasLocation rdf:resource="#server_room_37_18"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">108.38171605422659</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_19"/>
+  <observationResult rdf:resource="#result_37_19"/>
+  <hasLocation rdf:resource="#elevator_37_19"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">64.04035459025701</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_20"/>
+  <observationResult rdf:resource="#result_37_20"/>
+  <hasLocation rdf:resource="#server_room_37_20"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">66.26865910536141</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_21"/>
+  <observationResult rdf:resource="#result_37_21"/>
+  <hasLocation rdf:resource="#server_room_37_21"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">102.05991293272054</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_22"/>
+  <observationResult rdf:resource="#result_37_22"/>
+  <hasLocation rdf:resource="#server_room_37_22"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">115.23651151700217</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_23"/>
+  <observationResult rdf:resource="#result_37_23"/>
+  <hasLocation rdf:resource="#elevator_37_23"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">92.86280258227582</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_24"/>
+  <observationResult rdf:resource="#result_37_24"/>
+  <hasLocation rdf:resource="#elevator_37_24"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">79.39264473711543</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_25"/>
+  <observationResult rdf:resource="#result_37_25"/>
+  <hasLocation rdf:resource="#server_room_37_25"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">115.87226103752485</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_26"/>
+  <observationResult rdf:resource="#result_37_26"/>
+  <hasLocation rdf:resource="#elevator_37_26"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">82.54923536652515</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_27"/>
+  <observationResult rdf:resource="#result_37_27"/>
+  <hasLocation rdf:resource="#elevator_37_27"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">115.5684377411014</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_28"/>
+  <observationResult rdf:resource="#result_37_28"/>
+  <hasLocation rdf:resource="#elevator_37_28"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40.86170298130243</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_29"/>
+  <observationResult rdf:resource="#result_37_29"/>
+  <hasLocation rdf:resource="#server_room_37_29"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">83.16515989197205</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_30"/>
+  <observationResult rdf:resource="#result_37_30"/>
+  <hasLocation rdf:resource="#elevator_37_30"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">51.210325559570485</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_31"/>
+  <observationResult rdf:resource="#result_37_31"/>
+  <hasLocation rdf:resource="#elevator_37_31"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">29.007355494468904</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_32"/>
+  <observationResult rdf:resource="#result_37_32"/>
+  <hasLocation rdf:resource="#elevator_37_32"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">36.21672377001241</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_33"/>
+  <observationResult rdf:resource="#result_37_33"/>
+  <hasLocation rdf:resource="#server_room_37_33"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">54.513410659477586</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_34"/>
+  <observationResult rdf:resource="#result_37_34"/>
+  <hasLocation rdf:resource="#elevator_37_34"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_35">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_35">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_35">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">88.23906928124616</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_35">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_35"/>
+  <observationResult rdf:resource="#result_37_35"/>
+  <hasLocation rdf:resource="#elevator_37_35"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_36">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_36">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_36">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">115.50025443831053</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_36">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_36"/>
+  <observationResult rdf:resource="#result_37_36"/>
+  <hasLocation rdf:resource="#server_room_37_36"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_37">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_37">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_37">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">51.81701609107162</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_37">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_37"/>
+  <observationResult rdf:resource="#result_37_37"/>
+  <hasLocation rdf:resource="#elevator_37_37"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_38">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_38">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_38">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">101.93016821887356</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_38">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_38"/>
+  <observationResult rdf:resource="#result_37_38"/>
+  <hasLocation rdf:resource="#elevator_37_38"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_39">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_39">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_39">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">51.388065492417994</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_39">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_39"/>
+  <observationResult rdf:resource="#result_37_39"/>
+  <hasLocation rdf:resource="#server_room_37_39"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_40">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_40">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_40">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.979106156130285</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_40">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_40"/>
+  <observationResult rdf:resource="#result_37_40"/>
+  <hasLocation rdf:resource="#elevator_37_40"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_41">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_41">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_41">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">58.2593970232305</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_41">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_41"/>
+  <observationResult rdf:resource="#result_37_41"/>
+  <hasLocation rdf:resource="#server_room_37_41"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_42">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_42">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_42">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">116.79360363627538</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_42">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_42"/>
+  <observationResult rdf:resource="#result_37_42"/>
+  <hasLocation rdf:resource="#server_room_37_42"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_43">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_43">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_43">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">67.75741069891183</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_43">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_43"/>
+  <observationResult rdf:resource="#result_37_43"/>
+  <hasLocation rdf:resource="#elevator_37_43"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_44">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_44">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_44">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">68.70711849322612</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_44">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_44"/>
+  <observationResult rdf:resource="#result_37_44"/>
+  <hasLocation rdf:resource="#elevator_37_44"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_45">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_45">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_45">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">94.3124272719924</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_45">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_45"/>
+  <observationResult rdf:resource="#result_37_45"/>
+  <hasLocation rdf:resource="#server_room_37_45"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_46">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_46">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_46">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">84.62343075653949</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_46">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_46"/>
+  <observationResult rdf:resource="#result_37_46"/>
+  <hasLocation rdf:resource="#elevator_37_46"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_47">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_47">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_47">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">70.29370715494042</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_47">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_47"/>
+  <observationResult rdf:resource="#result_37_47"/>
+  <hasLocation rdf:resource="#elevator_37_47"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_48">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_48">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_48">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">58.18382501497485</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_48">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_48"/>
+  <observationResult rdf:resource="#result_37_48"/>
+  <hasLocation rdf:resource="#server_room_37_48"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_49">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<ServerRoom rdf:about="#server_room_37_49">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ServerRoom>
+
+<Result rdf:about="#result_37_49">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">110.66420857855373</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_49">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_49"/>
+  <observationResult rdf:resource="#result_37_49"/>
+  <hasLocation rdf:resource="#server_room_37_49"/>
+</Observation>
+
+<Temperature rdf:about="#temperature_37_50">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Temperature>
+
+<Elevator rdf:about="#elevator_37_50">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</Elevator>
+
+<Result rdf:about="#result_37_50">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">73.38739517681365</hasValue>
+</Result>
+
+<Observation rdf:about="#observation_37_50">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <observedProperty rdf:resource="#temperature_37_50"/>
+  <observationResult rdf:resource="#result_37_50"/>
+  <hasLocation rdf:resource="#elevator_37_50"/>
+</Observation>
+
+
+</rdf:RDF>
